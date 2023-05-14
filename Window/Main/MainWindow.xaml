@@ -6,8 +6,10 @@
         xmlns:local="clr-namespace:Demo.Jumper" xmlns:system="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
+        MinHeight="400" MinWidth="750" 
+        MaxHeight="500" MaxWidth="850"
         Icon="../../Photos/Jumper.ico"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen" FontFamily="Comic Sans MS">
     <Window.Resources>
         <system:String x:Key="NullImage">
             pack://application:,,,/Photos/picture.png
@@ -25,6 +27,23 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
+        <TextBlock Text="Фильтрация по типу:" Background="#F9969E" VerticalAlignment="Center" HorizontalAlignment="Left"></TextBlock>
+        <ComboBox Name="CompanyTypeSortOrder" Width="250" VerticalAlignment="Center" HorizontalAlignment="Right" SelectionChanged="CompanyTypeSortOrder_Selected"></ComboBox>
+
+        <TextBlock Text="Сортировка по наименованию:" Grid.Row="0" Grid.Column="1" Background="#F9969E" VerticalAlignment="Center" HorizontalAlignment="Left"></TextBlock>
+        <ComboBox Name="AgentNameSortOrder" Grid.Row="0" Grid.Column="1"  Width="200" VerticalAlignment="Center" HorizontalAlignment="Right" SelectionChanged="AgentNameSortOrder_SelectionChanged"></ComboBox>
+
+        <TextBlock Text="Сортировка по размеру скидки:" Grid.Row="1" Grid.Column="1" Background="#F9969E" VerticalAlignment="Center" HorizontalAlignment="Left"></TextBlock>
+        <ComboBox Name="SaleSizeSortOrder" Grid.Row="1" Grid.Column="1"  Width="200" VerticalAlignment="Center" HorizontalAlignment="Right" SelectionChanged="SaleSizeSortOrder_SelectionChanged"></ComboBox>
+
+        <TextBlock Text="Сортировка по приоритету:" Grid.Row="1" Grid.Column="0" Background="#F9969E" VerticalAlignment="Center" HorizontalAlignment="Left"></TextBlock>
+        <ComboBox Name="PrioritySortOrder" Grid.Row="1" Grid.Column="0"  Width="200" VerticalAlignment="Center" HorizontalAlignment="Right" SelectionChanged="PrioritySortOrder_SelectionChanged"></ComboBox>
+
+        <Label Content="Поиск" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left"></Label>
+        <TextBox x:Name="Search" Grid.Row="2" Grid.Column="1" Height="30" Width="250" HorizontalAlignment="Right" TextChanged="Search_TextChanged"></TextBox>
+
+        <Button Name="CreateAgent" Grid.Column="0" Grid.Row="2" Width="100" Content="Создать агента" Background="#43DCFE" Click="CreateAgent_Click"></Button>
+        
         <ListView Grid.Row="3" Grid.ColumnSpan="2" x:Name="ListAgents" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -48,14 +67,15 @@
                                 <ColumnDefinition Width="1*"/>
                                 <ColumnDefinition Width="1*"/>
                             </Grid.ColumnDefinitions>
-                            <Image Grid.Row="0" Grid.RowSpan="4" Grid.Column="0" Source="{Binding AgentPhotoFromResources, FallbackValue={StaticResource NullImage}}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90" Height="90"></Image>
-                            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Name}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                            <Image Grid.Row="0" Grid.RowSpan="4" Grid.Column="0" Source="{Binding AgentPhotoFromResources, FallbackValue={StaticResource NullImage}}" 
+                                   HorizontalAlignment="Center" VerticalAlignment="Center" Width="90" Height="90"></Image>
+                            <TextBlock Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding Name}" VerticalAlignment="Center" HorizontalAlignment="Left"></TextBlock>
                             <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding Type}" VerticalAlignment="Center" HorizontalAlignment="Left"></TextBlock>
-                            <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Email.ProductManufacturerName}" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
-                            <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding Phone}" VerticalAlignment="Center" HorizontalAlignment="Left"></TextBlock>
-                            <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding Director}" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
-                            <TextBlock Grid.Row="0" Grid.RowSpan="4" Grid.Column="3" Text="{Binding INN}" VerticalAlignment="Center" HorizontalAlignment="Left"></TextBlock>
-                            
+                            <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Phone}" VerticalAlignment="Center" HorizontalAlignment="Left"></TextBlock>
+                            <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding Priority}" VerticalAlignment="Center" HorizontalAlignment="Left"></TextBlock>
+
+                            <Button Grid.Row="1" Grid.Column="3" Background="#43DCFE" Content="Редактировать" x:Name="EditButton" Click="EditButton_Click"  VerticalAlignment="Center" HorizontalAlignment="Left"></Button>
+                            <Button Grid.Row="2" Grid.Column="3" Background="#43DCFE" Content="Удалить" x:Name="DeleteButton" Click="DeleteButton_Click" VerticalAlignment="Center" HorizontalAlignment="Left"></Button>
                         </Grid>
                     </Border>
                 </DataTemplate>
